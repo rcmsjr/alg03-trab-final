@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="smartcity">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/smartcity.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/smartcity.jar!/" />
+    </SOURCES>
+  </library>
+</component>

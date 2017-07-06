@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Created by robertomariano on 05/07/17.
  */
-public class Start {
+public class Main {
     static Map<String,Stop> stops;
     static Map<String,Route> routes;
     static Map<String,Shape> shapes;
@@ -22,35 +22,35 @@ public class Start {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
-        Start.readGtfs();
+        Main.readGtfs();
 
         System.out.println("Informe as coordenadas de origem (lat, long):");
         double latOrigem = scanner.nextDouble();
         double longOrigem = scanner.nextDouble();
 
-        Start.peopleRoute.setOrigin(new GPSCoordinate(latOrigem, longOrigem));
+        Main.peopleRoute.setOrigin(new GPSCoordinate(latOrigem, longOrigem));
 
         System.out.println("Informe as coordenadas de destino (lat, long):");
         double latDest = scanner.nextDouble();
         double longDest = scanner.nextDouble();
 
-        Start.peopleRoute.setDestiny(new GPSCoordinate(latDest, longDest));
+        Main.peopleRoute.setDestiny(new GPSCoordinate(latDest, longDest));
     }
 
     public static void readGtfs() throws FileNotFoundException {
         System.out.println("Reading stops.");
-        Start.stops = GTFSReader.loadStops("src/resources/data/stops.txt");
+        Main.stops = GTFSReader.loadStops("data/stops.txt");
         System.out.println("Reading routes.");
-        Start.routes = GTFSReader.loadRoutes("src/resources/data/routes.txt");
+        Main.routes = GTFSReader.loadRoutes("data/routes.txt");
         System.out.println("Reading shapes.");
-        Start.shapes = GTFSReader.loadShapes("src/resources/data/shapes.txt");
+        Main.shapes = GTFSReader.loadShapes("data/shapes.txt");
         System.out.println("Reading calendar.");
-        Start.services = GTFSReader.loadServices("src/resources/data/calendar.txt");
+        Main.services = GTFSReader.loadServices("data/calendar.txt");
         System.out.println("Reading trips.");
-        Start.trips = GTFSReader.loadTrips("src/resources/data/trips.txt",Start.routes,Start.services,Start.shapes);
+        Main.trips = GTFSReader.loadTrips("data/trips.txt", Main.routes, Main.services, Main.shapes);
         System.out.println("Reading stop times.");
         long s = System.currentTimeMillis();
-        GTFSReader.loadStopTimes("src/resources/data/stop_times.txt", Start.trips, Start.stops);
+        GTFSReader.loadStopTimes("data/stop_times.txt", Main.trips, Main.stops);
         long e = System.currentTimeMillis();
         System.out.println("\nTime: " + ((e-s)/1000.0));
     }

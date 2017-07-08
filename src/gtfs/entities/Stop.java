@@ -10,13 +10,13 @@ import java.util.*;
 public class Stop extends EntityBase {
     private String name;
     private GPSCoordinate coord;
-    private List<Trip> links;
+    private List<Trip> trips;
 
     public Stop(String id, String name, double latitude, double longitude) {
         super(id);
         this.name = name;
         this.coord = new GPSCoordinate(latitude, longitude);
-        this.links = new ArrayList<>();
+        this.trips = new ArrayList<>();
     }
 
     public String getName() {
@@ -25,6 +25,10 @@ public class Stop extends EntityBase {
 
     public GPSCoordinate getGPSCoordinate() {
         return coord;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
     }
 
     /**
@@ -37,7 +41,7 @@ public class Stop extends EntityBase {
     }
 
     public void addTrip(Trip lastTrip) {
-        if (! this.links.contains(lastTrip))
-            this.links.add(lastTrip);
+        if (! this.trips.contains(lastTrip))
+            this.trips.add(lastTrip);
     }
 }

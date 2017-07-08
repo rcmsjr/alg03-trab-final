@@ -39,22 +39,32 @@ public class Main {
 
         Stop origem = null;
         Stop destino = null;
+        Trip viagem = null;
         double menorDistanciaOrig = 999999999;
         double menorDistanciaDest = 999999999;
 
         for (Stop s : Main.stops.values()) {
             double disOrig = s.getGPSCoordinate().distance(Main.peopleRoute.getOrigin());
-            double disDest = s.getGPSCoordinate().distance(Main.peopleRoute.getDestiny());
 
             if (disOrig < menorDistanciaOrig) {
                 origem = s;
                 menorDistanciaOrig = disOrig;
             }
+        }
 
-            if (disDest < menorDistanciaDest) {
-                destino = s;
-                menorDistanciaDest = disDest;
+        for (Trip t : origem.getTrips()) {
+            if(t.hasStopNear(Main.peopleRoute.getDestiny(),150.00)) {
+                viagem = t;
+                break;
             }
+            /*for (Stop s : Main.stops.values()) {
+                double disDest = s.getGPSCoordinate().distance(Main.peopleRoute.getDestiny());
+
+                if (disDest < menorDistanciaDest) {
+                    destino = s;
+                    menorDistanciaDest = disDest;
+                }
+            }*/
         }
 
     }

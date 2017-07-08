@@ -44,4 +44,8 @@ public class Stop extends EntityBase {
         if (! this.trips.contains(lastTrip))
             this.trips.add(lastTrip);
     }
+
+    public double distance(GPSCoordinate place) {
+        return this.coord.distance(place);
+    }
 }

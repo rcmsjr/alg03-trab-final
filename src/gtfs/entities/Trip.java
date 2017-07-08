@@ -68,6 +68,22 @@ public class Trip extends EntityBase {
         return false;
     }
 
+    public Stop nearestStop(GPSCoordinate place) {
+        double minDis = 999999999;
+        Stop stop =  null;
+
+        for (Stop s : stops) {
+            double dis = s.distance(place);
+
+            if (dis < minDis) {
+                minDis = dis;
+                stop = s;
+            }
+        }
+
+        return stop;
+    }
+
     public List<Stop> getStops() {
         return stops;
     }

@@ -3,8 +3,10 @@ package app;
 import app.helper.GPSCoordinate;
 import gtfs.entities.*;
 import gtfs.services.GTFSReader;
+import gtfs.services.Pathfinder;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -29,22 +31,19 @@ public class Main {
 //        double latOrigem = scanner.nextDouble();
 //        double longOrigem = scanner.nextDouble();
 
-        Main.peopleRoute.setOrigin(new GPSCoordinate(-30.061908, -51.188538));
+        Main.peopleRoute.setOrigin(new GPSCoordinate(-30.026957, -51.181414));
 
 //        System.out.println("Informe as coordenadas de destino (lat, long):");
 //        double latDest = scanner.nextDouble();
 //        double longDest = scanner.nextDouble();
 
-        Main.peopleRoute.setDestiny(new GPSCoordinate(-30.0629887,-51.1684136));
+        Main.peopleRoute.setDestiny(new GPSCoordinate(-30.01002395,-51.1888057));
 
         Stop origem = null;
-        Stop destino = null;
-        Trip viagem = null;
         double menorDistanciaOrig = 999999999;
-        double menorDistanciaDest = 999999999;
 
         for (Stop s : Main.stops.values()) {
-            double disOrig = s.getGPSCoordinate().distance(Main.peopleRoute.getOrigin());
+            double disOrig = s.distance(Main.peopleRoute.getOrigin());
 
             if (disOrig < menorDistanciaOrig) {
                 origem = s;
@@ -52,21 +51,8 @@ public class Main {
             }
         }
 
-        for (Trip t : origem.getTrips()) {
-            if(t.hasStopNear(Main.peopleRoute.getDestiny(),150.00)) {
-                viagem = t;
-                break;
-            }
-            /*for (Stop s : Main.stops.values()) {
-                double disDest = s.getGPSCoordinate().distance(Main.peopleRoute.getDestiny());
-
-                if (disDest < menorDistanciaDest) {
-                    destino = s;
-                    menorDistanciaDest = disDest;
-                }
-            }*/
-        }
-
+        Pathfinder pathfinder = new Pathfinder(Main.peopleRoute.getDestiny(), Main.stops);
+        pathfinder.findPath(origem);
     }
 
     public static void readGtfs() throws FileNotFoundException {

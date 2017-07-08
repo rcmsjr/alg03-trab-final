@@ -199,6 +199,7 @@ public class GTFSReader {
                 lastTrip = trip;
             }
             Stop stop = searchObject(stops, stop_id);
+            stop.addTrip(lastTrip);
             lastTrip.addStop(stop);
         }
     }

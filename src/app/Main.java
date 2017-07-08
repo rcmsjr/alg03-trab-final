@@ -5,6 +5,7 @@ import gtfs.entities.*;
 import gtfs.services.GTFSReader;
 
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -24,17 +25,38 @@ public class Main {
 
         Main.readGtfs();
 
-        System.out.println("Informe as coordenadas de origem (lat, long):");
-        double latOrigem = scanner.nextDouble();
-        double longOrigem = scanner.nextDouble();
+//        System.out.println("Informe as coordenadas de origem (lat, long):");
+//        double latOrigem = scanner.nextDouble();
+//        double longOrigem = scanner.nextDouble();
 
-        Main.peopleRoute.setOrigin(new GPSCoordinate(latOrigem, longOrigem));
+        Main.peopleRoute.setOrigin(new GPSCoordinate(-30.061908, -51.188538));
 
-        System.out.println("Informe as coordenadas de destino (lat, long):");
-        double latDest = scanner.nextDouble();
-        double longDest = scanner.nextDouble();
+//        System.out.println("Informe as coordenadas de destino (lat, long):");
+//        double latDest = scanner.nextDouble();
+//        double longDest = scanner.nextDouble();
 
-        Main.peopleRoute.setDestiny(new GPSCoordinate(latDest, longDest));
+        Main.peopleRoute.setDestiny(new GPSCoordinate(-30.0629887,-51.1684136));
+
+        Stop origem = null;
+        Stop destino = null;
+        double menorDistanciaOrig = 999999999;
+        double menorDistanciaDest = 999999999;
+
+        for (Stop s : Main.stops.values()) {
+            double disOrig = s.getGPSCoordinate().distance(Main.peopleRoute.getOrigin());
+            double disDest = s.getGPSCoordinate().distance(Main.peopleRoute.getDestiny());
+
+            if (disOrig < menorDistanciaOrig) {
+                origem = s;
+                menorDistanciaOrig = disOrig;
+            }
+
+            if (disDest < menorDistanciaDest) {
+                destino = s;
+                menorDistanciaDest = disDest;
+            }
+        }
+
     }
 
     public static void readGtfs() throws FileNotFoundException {

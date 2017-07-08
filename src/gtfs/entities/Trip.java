@@ -67,4 +67,21 @@ public class Trip extends EntityBase {
         }
         return false;
     }
+
+    public List<Stop> getStops() {
+        return stops;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public boolean equals(Object o) {
+        if  (o instanceof Trip) {
+            Trip trip = (Trip)o;
+            return this.direction == trip.getDirection() && this.route.equals(trip.getRoute());
+        } else {
+            return super.equals(o);
+        }
+    }
 }

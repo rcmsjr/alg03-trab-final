@@ -15,8 +15,6 @@ public class Router {
     private Map<String, Stop> stops;
     private GPSCoordinate start;
     private GPSCoordinate end;
-    private double minDisToDestiny = 999999999;
-    private ArrayList<Step> steps = new ArrayList<>();
 
     public class Step {
         private Route route;
@@ -35,10 +33,15 @@ public class Router {
     }
 
     public void route() {
-        findPath(nearStop(start));
+        ArrayList<Step> steps = new ArrayList<>();
+        findPath(nearStop(start), steps);
     }
 
-    public void findPath(Stop stopA) {
+    public void findPath(Stop stopA, ArrayList<Step> steps) {
+        findPath(stopA, steps, 999999999);
+    }
+
+    public void findPath(Stop stopA, ArrayList<Step> steps, double minDisToDestiny) {
         Stop nearestStop = null;
         Route routeUsed = null;
 
@@ -57,10 +60,7 @@ public class Router {
 
         if (minDis < minDisToDestiny) {
             steps.add(new Step(routeUsed, nearestStop));
-            minDisToDestiny = minDis;
-            findPath(nearestStop);
-        } else {
-            System.out.println("fim");
+            findPath(nearestStop, steps, minDis);
         }
     }
 

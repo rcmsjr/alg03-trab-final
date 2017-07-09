@@ -36,7 +36,7 @@ public class Main {
 //        destiny = new GPSCoordinate(scanner.nextDouble(), scanner.nextDouble());
 
         origin = new GPSCoordinate(-30.026957, -51.181414);
-        destiny = new GPSCoordinate(-30.01002395,-51.1888057);
+        destiny = new GPSCoordinate(-30.0352924,-51.2264149);
 
 
         Router pathfinder = new Router(

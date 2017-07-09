@@ -37,11 +37,11 @@ public class Router {
         findPath(nearStop(start), steps);
     }
 
-    public void findPath(Stop stopA, ArrayList<Step> steps) {
-        findPath(stopA, steps, 999999999);
+    public void findPath(Stop stop, ArrayList<Step> steps) {
+        findPath(stop, steps, 999999999);
     }
 
-    public void findPath(Stop stopA, ArrayList<Step> steps, double minDisToDestiny) {
+    public void findPath(Stop stopA, ArrayList<Step> steps, double minDisToTarget) {
         Stop nearestStop = null;
         Route routeUsed = null;
 
@@ -58,10 +58,32 @@ public class Router {
             }
         }
 
-        if (minDis < minDisToDestiny) {
+        if (minDis < minDisToTarget) {
             steps.add(new Step(routeUsed, nearestStop));
             findPath(nearestStop, steps, minDis);
+        } else {
+            Stop closerStop = closerStop(nearestStop, minDisToTarget);
+
+            if (null != closerStop) {
+                findPath(closerStop, steps);
+            }
         }
+    }
+
+    private Stop closerStop(Stop nearestStop, double minDisToTarget) {
+        Stop closerStop = null;
+        for (Stop stop : stops.values()) {
+            double distance = stop.distance(nearestStop);
+
+            distance += stop.distance(end);
+
+            if (distance < minDisToTarget) {
+                minDisToTarget = distance;
+                closerStop = stop;
+            }
+        }
+
+        return closerStop;
     }
 
     /**

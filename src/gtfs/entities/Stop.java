@@ -48,4 +48,8 @@ public class Stop extends EntityBase {
     public double distance(GPSCoordinate place) {
         return this.coord.distance(place);
     }
+
+    public double distance(Stop stop) {
+        return distance(stop.getGPSCoordinate());
+    }
 }

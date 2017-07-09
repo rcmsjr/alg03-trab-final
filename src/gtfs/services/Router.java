@@ -32,9 +32,12 @@ public class Router {
         this.stops = stops;
     }
 
-    public void route() {
+    public ArrayList<Step> route() {
         ArrayList<Step> steps = new ArrayList<>();
+
         findPath(nearStop(start), steps);
+
+        return steps;
     }
 
     public void findPath(Stop stop, ArrayList<Step> steps) {
@@ -62,7 +65,7 @@ public class Router {
             steps.add(new Step(routeUsed, nearestStop));
             findPath(nearestStop, steps, minDis);
         } else {
-            Stop closerStop = closerStop(nearestStop, minDisToTarget);
+            Stop closerStop = closerStopToTarget(nearestStop, minDisToTarget);
 
             if (null != closerStop) {
                 findPath(closerStop, steps);
@@ -70,7 +73,7 @@ public class Router {
         }
     }
 
-    private Stop closerStop(Stop nearestStop, double minDisToTarget) {
+    private Stop closerStopToTarget(Stop nearestStop, double minDisToTarget) {
         Stop closerStop = null;
         for (Stop stop : stops.values()) {
             double distance = stop.distance(nearestStop);

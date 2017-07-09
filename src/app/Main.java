@@ -6,6 +6,7 @@ import gtfs.services.GTFSReader;
 import gtfs.services.Router;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -39,13 +40,13 @@ public class Main {
         destiny = new GPSCoordinate(-30.0352924,-51.2264149);
 
 
-        Router pathfinder = new Router(
+        Router router = new Router(
             origin,
             destiny,
             Main.stops
         );
 
-        pathfinder.route();
+        List<Router.Step> route = router.route();
     }
 
     public static void readGtfs() throws FileNotFoundException {

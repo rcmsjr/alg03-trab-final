@@ -18,10 +18,12 @@ public class Router {
 
     public class Step {
         private Route route;
+        private Stop stopOrigin;
         private Stop stop;
 
-        public Step(Route route, Stop stop) {
+        public Step(Route route, Stop stopOrigin, Stop stop) {
             this.route = route;
+            this.stopOrigin = stopOrigin;
             this.stop = stop;
         }
     }
@@ -62,7 +64,7 @@ public class Router {
         }
 
         if (minDis < minDisToTarget) {
-            steps.add(new Step(routeUsed, nearestStop));
+            steps.add(new Step(routeUsed, stopA, nearestStop));
             findPath(nearestStop, steps, minDis);
         } else {
             Stop closerStop = closerStopToTarget(nearestStop, minDisToTarget);

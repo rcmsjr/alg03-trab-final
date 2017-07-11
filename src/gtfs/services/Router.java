@@ -26,6 +26,18 @@ public class Router {
             this.stopOrigin = stopOrigin;
             this.stop = stop;
         }
+
+        public Route getRoute() {
+            return route;
+        }
+
+        public Stop getStopOrigin() {
+            return stopOrigin;
+        }
+
+        public Stop getStop() {
+            return stop;
+        }
     }
 
     public Router(GPSCoordinate start, GPSCoordinate end, Map<String, Stop> stops) {
